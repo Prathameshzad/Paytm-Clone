@@ -14,7 +14,7 @@ export const  Signup = () => {
 
   return (
     <div className='h-screen  bg-[#111827] flex justify-center text-[#FFFFFF]'>
-        <div className='flex flex-col justify-center'>
+        <div c  lassName='flex flex-col justify-center'>
           <div className='rounded-lg bg-[#111827] sm:w-96 text-center p-2 h-max px-4'>
             <Heading label={"Sign Up"} />
             <LightMessage label={"Enter your credentials to access your access"}/>
@@ -23,13 +23,14 @@ export const  Signup = () => {
             <InputBox onChange={e=>{setUserName(e.target.value)}} placeholder="Email" label="Email" className="pt-4"/>
             <InputBox onChange={e=>{setPassword(e.target.value)}} placeholder="password" label="password" className="pt-4"/>
             <div className='mt-8'>
-            <ButtonComp onClick={()=>{
-              axios.post("http://localhost:3000/api/v1/user/signup", {
+            <ButtonComp onClick={async()=>{
+              const response = await axios.post("http://localhost:3000/api/v1/user/signup", {
                 username,
                 firstName,
                 lastName,
                 password
               })
+              localStorage.setItem("taken",response.data.token)
             }} label={"Sign up"}/>
             </div>
             <ButtonWarming label={'Already have an account ?'} buttonText={"Sign up"} to={"/signup"}/>
